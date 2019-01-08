@@ -1,0 +1,51 @@
+How To Efficiently Search A JSON Array
+We all know that JavaScript can be a great tool for enhancing the user experience of your website. However, when written poorly that tool can actually do the opposite. Today we will be addressing how to efficiently iterate on a JSON Array to see if one of the JSON objects contains a desired unique value (this technique only works with values that will be unique). A JSON Array is simply a JavaScript Array where each element is an Object, and each Object have the same keys. Lets consider the following JSON Array for a list of tag objects:
+
+Example 1: Tags JSON Array
+
+var tags = [
+    {tagId: 1, tagName: 'tag 1'},
+    {tagId: 2, tagName: 'tag 2'},
+    {tagId: 3, tagName: 'tag 3'},
+    …
+    {tagId: 99, tagName: 'tag 99'}
+    {tagId: 100, tagName: 'tag 100'}
+];
+The tags JSON Array contains 100 JSON objects, each containing the tagId and tagName keys. Now, assume that we have a text input somewhere on the page where a user can add a new tag. Before we let that user add a tag, we want to make sure that it doesn’t exist, therefore you might do the following:
+
+Example 2: Common Way to Test For Existence
+
+var hasTag = function(tagName) {
+    var i = null;
+    for (i = 0; tags.length > i; i += 1) {
+        if (tags[i].tagName === tagName) {
+            return true;
+        }
+    }
+     
+    return false;
+};
+If you use Array.js then you could write the same method as:
+
+Example 3: Common Way to Test For Existence Using Array.js
+var hasTag = function(tagName) {
+    return tags.batch(function(tag) {
+        if (tag.tagName === tagName) {
+            has = true;
+            return has;
+        }
+    });
+};
+Now, if you only had to test if a tag existed once, then this technique would be fine. You can just call the hasTag method once and then you are done. However, in the case we outlined above, each time a user enters a new tag, we have to call the hasTag method. This is a very inefficient operation to call repeatedly and although it won’t severely affect performance in this example, because it is not done on page load or very frequently, it is bad practice. The more efficient way to test if a value exists inside of one of the contained objects, is to iterate through the Array once and create a Map of the keys to their values. Then the hasTag method need only check against this map, which is much faster than iterating on the list:
+
+Example 4: Creating a Map of Keys
+var tagMap = {};
+var i = null;
+for (i = 0; tags.length > i; i += 1) {
+    tagMap[tags[i].tagName] = tags[i];
+}
+ 
+var hasTag = function(tagName) {
+    return tagMap[tagName];
+};
+The hasTag method in Example 4 has a negligible performance hit, so you could even use it in a mousemove event callback on the document, without ruining your user’s experience. The point is that if you have a JSON Array (or an Array of like Objects) and have to search for a key value on an Object inside that Array (more than once), it is far more efficient to create a map of the key or keys you wish to search on, than to search the Array each time. Using this technique will improve the performance of your application and improve your the experience of your users.
