@@ -1,0 +1,347 @@
+Array Operations:
+1.  <arrayname>.length: used for finding the elements of an array.
+The length property provides an easy way to append a new element to an array:
+
+The length property provides an easy way to append new elements to an array without using the push() method.
+using array length method
+
+Ex:
+
+<!DOCTYPE html>
+<html>
+<body>
+<h2>JavaScript Array Methods</h2>
+<p>The length property provides an easy way to append new elements to an array without using the push() method.</p>
+<button onclick="myFunction()">Try it</button>
+<p id="demo"></p>
+<script>
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+document.getElementById("demo").innerHTML = fruits;
+function myFunction() {
+  fruits[fruits.length] = "Kiwi";
+  document.getElementById("demo").innerHTML = fruits;
+}
+</script>
+</body>
+</html>
+________________________________________________________________________________________________________________
+2. Changing Elements
+
+Adding elements:
+Array elements are accessed using their index number:
+
+Array indexes start with 0. [0] is the first array element, [1] is the second, [2] is the third .
+
+Ex: changing the first element of the an array.
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits[0] = "Kiwi";        // Changes the first element of fruits to "Kiwi"
+
+
+Deleting:
+Deleting Elements and adding elements using index.
+
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+delete fruits[0];           // Changes the first element in fruits to undefined
+
+Since JavaScript arrays are objects, elements can be deleted by using the JavaScript operator delete:
+
+<!DOCTYPE html>
+<html>
+<body>
+<h2>JavaScript Array Methods</h2>
+<p>Deleting elements leaves undefined holes in an array.</p>
+
+<p id="demo1"></p>
+<p id="demo2"></p>
+<script>
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+document.getElementById("demo1").innerHTML =
+"The first fruit is: " + fruits[0];
+delete fruits[0];
+fruits[0] = 'Test';
+document.getElementById("demo2").innerHTML =
+"The first fruit is: " + fruits[0];
+</script>
+</body>
+</html>
+
+_________________________________________________________________________________________________________________
+
+Splicing an Array
+
+The splice() method can be used to add new items to an array:
+
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.splice(2, 0, "Lemon", "Kiwi");
+
+The first parameter (2) defines the position where new elements should be added (spliced in).
+
+The second parameter (0) defines how many elements should be removed.
+
+The rest of the parameters ("Lemon" , "Kiwi") define the new elements to be added.
+--------
+The splice() method returns an array with the deleted items:
+Ex:
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.splice(2, 2, "Lemon", "Kiwi");
+--------
+Using splice() to Remove Elements
+With clever parameter setting, you can use splice() to remove elements without leaving "holes" in the array:
+Ex:
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.splice(0, 1);        // Removes the first element of fruits
+
+The first parameter (0) defines the position where new elements should be added (spliced in).
+
+The second parameter (1) defines how many elements should be removed.
+
+The rest of the parameters are omitted. No new elements will be added.
+____________________________________________________________________________________________________________________
+Merging (Concatenating) Arrays
+The concat() method creates a new array by merging (concatenating) existing arrays:
+Ex:
+var myGirls = ["Cecilie", "Lone"];
+var myBoys = ["Emil", "Tobias", "Linus"];
+var myChildren = myGirls.concat(myBoys);   // Concatenates (joins) myGirls and myBoys
+----------
+Note:
+The concat() method does not change the existing arrays. It always returns a new array.
+The concat() method can take any number of array arguments:
+Ex:
+var arr1 = ["Cecilie", "Lone"];
+var arr2 = ["Emil", "Tobias", "Linus"];
+var arr3 = ["Robin", "Morgan"];
+var myChildren = arr1.concat(arr2, arr3);   // Concatenates arr1 with arr2 and arr3
+____________________________________________________________________________________________________________________
+Slicing an Array
+The slice() method slices out a piece of an array into a new array.
+
+This example slices out a part of an array starting from array element 1 ("Orange"):
+var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+var citrus = fruits.slice(1);
+
+Note:
+The slice() method creates a new array. It does not remove any elements from the source array.
+----------
+This example slices out a part of an array starting from array element 3 ("Apple"):
+
+var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+var citrus = fruits.slice(3);
+----------
+Note:
+The slice() method can take two arguments like slice(1, 3).
+The method then selects elements from the start argument, and up to (but not including) the end argument.
+Ex:
+var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+var citrus = fruits.slice(1, 3);
+----------
+Note:
+If the end argument is omitted, like in the first examples, the slice() method slices out the rest of the array.
+Ex:
+var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+var citrus = fruits.slice(2);
+____________________________________________________________________________________________________________________
+
+Automatic toString()
+JavaScript automatically converts an array to a comma separated string when a primitive value is expected.
+
+This is always the case when you try to output an array
+Ex:
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+document.getElementById("demo").innerHTML = fruits.toString();
+
+or(both are same)
+
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+document.getElementById("demo").innerHTML = fruits;
+
+Array Sorting:
+The sort() method sorts an array alphabetically:
+Ex:
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.sort();        // Sorts the elements of fruits
+
+Reversing an Array
+The reverse() method reverses the elements in an array.
+
+You can use it to sort an array in descending order:
+
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.sort();        // First sort the elements of fruits 
+fruits.reverse();     // Then reverse the order of the elements
+------------
+
+Numeric Sort
+By default, the sort() function sorts values as strings.
+Note:
+This works well for strings ("Apple" comes before "Banana").
+
+However, if numbers are sorted as strings, "25" is bigger than "100", because "2" is bigger than "1".
+
+Because of this, the sort() method will produce incorrect result when sorting numbers.
+
+You can fix this by providing a compare function:
+Example
+var points = [40, 100, 1, 5, 25, 10];
+points.sort(function(a, b){return a - b});
+
+Use the same trick to sort an array descending:
+Example
+var points = [40, 100, 1, 5, 25, 10];
+points.sort(function(a, b){return b - a});
+
+
+The Compare Function:
+The purpose of the compare function is to define an alternative sort order.
+
+The compare function should return a negative, zero, or positive value, depending on the arguments:
+function(a, b){return a-b}
+Example
+<!DOCTYPE html>
+<html>
+<body>
+<h2>JavaScript Array Sort</h2>
+<p>Click the button to sort the array in ascending order.</p>
+<button onclick="myFunction()">Try it</button>
+<p id="demo"></p>
+<script>
+var points = [40, 100, 1, 5, 25, 10];
+document.getElementById("demo").innerHTML = points;  
+function myFunction() {
+  points.sort(function(a, b){return a - b});
+  document.getElementById("demo").innerHTML = points;
+}
+</script>
+</body>
+</html>
+
+--------------------------------
+
+Find the Highest (or Lowest) Array Value:
+There are no built-in functions for finding the max or min value in an array.
+However, after you have sorted an array, you can use the index to obtain the highest and lowest values.
+Sorting ascending:
+Example:
+var points = [40, 100, 1, 5, 25, 10];
+points.sort(function(a, b){return a - b});
+// now points[0] contains the lowest value
+// and points[points.length-1] contains the highest value
+
+Sorting descending:
+
+Example
+var points = [40, 100, 1, 5, 25, 10];
+points.sort(function(a, b){return b - a});
+// now points[0] contains the highest value
+// and points[points.length-1] contains the lowest value
+-----------------------
+
+Using Math.max() on an Array:
+You can use Math.max.apply to find the highest number in an array:
+Example
+function myArrayMax(arr) {
+  return Math.max.apply(null, arr);
+}
+Exp:
+Math.max.apply(null, [1, 2, 3]) is equivalent to Math.max(1, 2, 3).
+
+Using Math.min() on an Array
+You can use Math.min.apply to find the lowest number in an array:
+
+Example
+function myArrayMin(arr) {
+  return Math.min.apply(null, arr);
+}
+Math.min.apply(null, [1, 2, 3]) is equivalent to Math.min(1, 2, 3).
+
+----------------
+My Min / Max JavaScript Methods
+The fastest solution is to use a "home made" method.
+
+This function loops through an array comparing each value with the highest value found:
+
+arr=[1,2,3,4,5];
+(function myArrayMax(arr) {
+  var len = arr.length
+  var max = -Infinity;
+  while (len--) {
+    if (arr[len] > max) {
+      max = arr[len];
+    }
+  }
+  return max;
+});
+
+
+
+
+
+
+This works well for strings ("Apple" comes before "Banana").
+
+However, if numbers are sorted as strings, "25" is bigger than "100", because "2" is bigger than "1".
+
+Because of this, the sort() method will produce incorrect result when sorting numbers.
+
+You can fix this by providing a compare function:
+
+Array Object
+The Array object is used to store multiple values in a single variable:
+
+var cars = ["Saab", "Volvo", "BMW"];
+Array indexes are zero-based: The first element in the array is 0, the second is 1, and so on.
+
+For a tutorial about Arrays, read our JavaScript Array Tutorial.
+
+Array Properties
+Property	Description
+constructor	Returns the function that created the Array object's prototype
+length	Sets or returns the number of elements in an array
+prototype	Allows you to add properties and methods to an Array object
+Array Methods
+Method	Description
+concat()	Joins two or more arrays, and returns a copy of the joined arrays
+copyWithin()	Copies array elements within the array, to and from specified positions
+entries()	Returns a key/value pair Array Iteration Object
+every()	Checks if every element in an array pass a test
+fill()	Fill the elements in an array with a static value
+filter()	Creates a new array with every element in an array that pass a test
+find()	Returns the value of the first element in an array that pass a test
+findIndex()	Returns the index of the first element in an array that pass a test
+forEach()	Calls a function for each array element
+from()	Creates an array from an object
+includes()	Check if an array contains the specified element
+indexOf()	Search the array for an element and returns its position
+isArray()	Checks whether an object is an array
+join()	Joins all elements of an array into a string
+keys()	Returns a Array Iteration Object, containing the keys of the original array
+lastIndexOf()	Search the array for an element, starting at the end, and returns its position
+map()	Creates a new array with the result of calling a function for each array element
+pop()	Removes the last element of an array, and returns that element
+push()	Adds new elements to the end of an array, and returns the new length
+reduce()	Reduce the values of an array to a single value (going left-to-right)
+reduceRight()	Reduce the values of an array to a single value (going right-to-left)
+reverse()	Reverses the order of the elements in an array
+shift()	Removes the first element of an array, and returns that element
+slice()	Selects a part of an array, and returns the new array
+some()	Checks if any of the elements in an array pass a test
+sort()	Sorts the elements of an array
+splice()	Adds/Removes elements from an array
+toString()	Converts an array to a string, and returns the result
+unshift()	Adds new elements to the beginning of an array, and returns the new length
+valueOf()	Returns the primitive value of an array
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
